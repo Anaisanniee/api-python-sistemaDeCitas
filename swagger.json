@@ -1,0 +1,452 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Puesto de Salud Bohórquez",
+    "description": "API para gestionar pacientes, doctores, servicios, consultorios y citas.",
+    "version": "1.0.0"
+  },
+
+  "servers": [
+    { "url": "http://localhost:5000" }
+  ],
+
+  "tags": [
+    { "name": "Pacientes" },
+    { "name": "Doctores" },
+    { "name": "Servicios" },
+    { "name": "Consultorios" },
+    { "name": "Citas" }
+  ],
+
+  "paths": {
+    "/pacientes": {
+      "get": {
+        "tags": ["Pacientes"],
+        "summary": "Listar todos los pacientes",
+        "responses": {
+          "200": {
+            "description": "Lista de pacientes",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Paciente" } }
+              }
+            }
+          }
+        }
+      },
+
+      "post": {
+        "tags": ["Pacientes"],
+        "summary": "Registrar un nuevo paciente",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PacienteCreate" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Paciente registrado" },
+          "400": { "description": "Datos incompletos o inválidos" }
+        }
+      }
+    },
+
+    "/pacientes/{id}": {
+      "put": {
+        "tags": ["Pacientes"],
+        "summary": "Actualizar un paciente",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PacienteCreate" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Paciente actualizado" },
+          "404": { "description": "Paciente no encontrado" }
+        }
+      },
+
+      "delete": {
+        "tags": ["Pacientes"],
+        "summary": "Eliminar un paciente",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Paciente eliminado" },
+          "404": { "description": "Paciente no encontrado" }
+        }
+      }
+    },
+
+    "/doctores": {
+      "get": {
+        "tags": ["Doctores"],
+        "summary": "Listar doctores",
+        "responses": {
+          "200": {
+            "description": "Lista de doctores",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Doctor" } }
+              }
+            }
+          }
+        }
+      },
+
+      "post": {
+        "tags": ["Doctores"],
+        "summary": "Registrar un doctor",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/DoctorCreate" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Doctor registrado" },
+          "400": { "description": "Datos inválidos" }
+        }
+      }
+    },
+
+    "/doctores/{id}": {
+      "put": {
+        "tags": ["Doctores"],
+        "summary": "Actualizar un doctor",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/DoctorCreate" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Doctor actualizado" },
+          "404": { "description": "Doctor no encontrado" }
+        }
+      },
+
+      "delete": {
+        "tags": ["Doctores"],
+        "summary": "Eliminar un doctor",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Doctor eliminado" },
+          "404": { "description": "Doctor no encontrado" }
+        }
+      }
+    },
+
+    "/servicios": {
+      "get": {
+        "tags": ["Servicios"],
+        "summary": "Listar servicios",
+        "responses": {
+          "200": {
+            "description": "Servicios listados",
+            "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Servicio" } } } }
+          }
+        }
+      },
+
+      "post": {
+        "tags": ["Servicios"],
+        "summary": "Crear un servicio",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ServicioCreate" } } }
+        },
+        "responses": {
+          "201": { "description": "Servicio creado" }
+        }
+      }
+    },
+
+    "/servicios/{id}": {
+      "put": {
+        "tags": ["Servicios"],
+        "summary": "Actualizar un servicio",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ServicioCreate" } } }
+        },
+        "responses": {
+          "200": { "description": "Servicio actualizado" },
+          "404": { "description": "Servicio no encontrado" }
+        }
+      },
+
+      "delete": {
+        "tags": ["Servicios"],
+        "summary": "Eliminar un servicio",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Servicio eliminado" },
+          "404": { "description": "Servicio no encontrado" }
+        }
+      }
+    },
+
+    "/consultorios": {
+      "get": {
+        "tags": ["Consultorios"],
+        "summary": "Listar consultorios",
+        "responses": {
+          "200": {
+            "description": "Consultorios listados",
+            "content": {
+              "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Consultorio" } } }
+            }
+          }
+        }
+      },
+
+      "post": {
+        "tags": ["Consultorios"],
+        "summary": "Registrar un consultorio",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ConsultorioCreate" } } }
+        },
+        "responses": {
+          "201": { "description": "Consultorio creado" }
+        }
+      }
+    },
+
+    "/consultorios/{id}": {
+      "put": {
+        "tags": ["Consultorios"],
+        "summary": "Actualizar un consultorio",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ConsultorioCreate" } } }
+        },
+        "responses": {
+          "200": { "description": "Consultorio actualizado" }
+        }
+      },
+
+      "delete": {
+        "tags": ["Consultorios"],
+        "summary": "Eliminar un consultorio",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Consultorio eliminado" }
+        }
+      }
+    },
+
+    "/citas": {
+      "get": {
+        "tags": ["Citas"],
+        "summary": "Listar todas las citas",
+        "responses": {
+          "200": {
+            "description": "Lista de citas",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Cita" } }
+              }
+            }
+          }
+        }
+      },
+
+      "post": {
+        "tags": ["Citas"],
+        "summary": "Crear una cita",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CitaCreate" } } }
+        },
+        "responses": {
+          "201": { "description": "Cita creada" },
+          "400": { "description": "Datos inválidos" }
+        }
+      }
+    },
+
+    "/citas/{id}": {
+      "put": {
+        "tags": ["Citas"],
+        "summary": "Actualizar una cita",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CitaCreate" } } }
+        },
+        "responses": {
+          "200": { "description": "Cita actualizada" },
+          "404": { "description": "Cita no encontrada" }
+        }
+      },
+
+      "delete": {
+        "tags": ["Citas"],
+        "summary": "Eliminar una cita",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Cita eliminada" },
+          "404": { "description": "Cita no encontrada" }
+        }
+      }
+    }
+  },
+
+  "components": {
+    "schemas": {
+      "Paciente": {
+        "type": "object",
+        "properties": {
+          "id_paciente": { "type": "integer" },
+          "documento": { "type": "string" },
+          "nombre": { "type": "string" },
+          "fecha_nacimiento": { "type": "string" },
+          "telefono": { "type": "string" },
+          "direccion": { "type": "string" },
+          "correo": { "type": "string" }
+        }
+      },
+
+      "PacienteCreate": {
+        "type": "object",
+        "required": ["documento", "nombre", "fecha_nacimiento", "telefono", "direccion", "correo"],
+        "properties": {
+          "documento": { "type": "string" },
+          "nombre": { "type": "string" },
+          "fecha_nacimiento": { "type": "string" },
+          "telefono": { "type": "string" },
+          "direccion": { "type": "string" },
+          "correo": { "type": "string" }
+        }
+      },
+
+      "Doctor": {
+        "type": "object",
+        "properties": {
+          "id_profesional": { "type": "integer" },
+          "nombre": { "type": "string" },
+          "especialidad": { "type": "string" },
+          "telefono": { "type": "string" },
+          "correo": { "type": "string" }
+        }
+      },
+
+      "DoctorCreate": {
+        "type": "object",
+        "required": ["nombre", "especialidad", "telefono", "correo"],
+        "properties": {
+          "nombre": { "type": "string" },
+          "especialidad": { "type": "string" },
+          "telefono": { "type": "string" },
+          "correo": { "type": "string" }
+        }
+      },
+
+      "Servicio": {
+        "type": "object",
+        "properties": {
+          "id_servicio": { "type": "integer" },
+          "nombre": { "type": "string" },
+          "duracion_minutos": { "type": "integer" },
+          "tipo": { "type": "string" }
+        }
+      },
+
+      "ServicioCreate": {
+        "type": "object",
+        "required": ["nombre", "duracion_minutos", "tipo"],
+        "properties": {
+          "nombre": { "type": "string" },
+          "duracion_minutos": { "type": "integer" },
+          "tipo": { "type": "string" }
+        }
+      },
+
+      "Consultorio": {
+        "type": "object",
+        "properties": {
+          "id_consultorio": { "type": "integer" },
+          "nombre": { "type": "string" },
+          "ubicacion": { "type": "string" },
+          "tipo": { "type": "string" }
+        }
+      },
+
+      "ConsultorioCreate": {
+        "type": "object",
+        "required": ["nombre", "ubicacion", "tipo"],
+        "properties": {
+          "nombre": { "type": "string" },
+          "ubicacion": { "type": "string" },
+          "tipo": { "type": "string" }
+        }
+      },
+
+      "Cita": {
+        "type": "object",
+        "properties": {
+          "id_cita": { "type": "integer" },
+          "id_paciente": { "type": "integer" },
+          "id_profesional": { "type": "integer" },
+          "id_servicio": { "type": "integer" },
+          "id_consultorio": { "type": "integer" },
+          "fecha": { "type": "string" },
+          "hora_inicio": { "type": "string" },
+          "hora_fin": { "type": "string" },
+          "estado": { "type": "string" },
+          "notas": { "type": "string" }
+        }
+      },
+
+      "CitaCreate": {
+        "type": "object",
+        "required": ["id_paciente", "id_profesional", "id_servicio", "id_consultorio", "fecha", "hora_inicio"],
+        "properties": {
+          "id_paciente": { "type": "integer" },
+          "id_profesional": { "type": "integer" },
+          "id_servicio": { "type": "integer" },
+          "id_consultorio": { "type": "integer" },
+          "fecha": { "type": "string" },
+          "hora_inicio": { "type": "string" },
+          "hora_fin": { "type": "string" },
+          "estado": { "type": "string" },
+          "notas": { "type": "string" }
+        }
+      }
+    }
+  }
+}
